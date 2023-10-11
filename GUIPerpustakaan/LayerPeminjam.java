@@ -256,11 +256,14 @@ public class LayerPeminjam extends javax.swing.JDialog {
     //menjalankan program saat tombol simpan di tekan
     private void simpanButtonActionPerformed(java.awt.event.ActionEvent evt) {
 
-        //menampilkan pesan dialog dengan JOptanePane, berisi String,
-        // nilai diambil dari inputText
+        // nilai harus true semua agar JOptanePane ditampilkan
         if ((isNamaNotContainDigit() &&
                 isIdPeminjamStartWithLetter() &&
                 isNomorIndukHaveCorectLength()) && isMaxPinjamValid()) {
+
+            /**
+             * menampilkan pesan dialog dengan JOptanePane, berisi String, nilai diambil dari inputText
+             */
             JOptionPane.showMessageDialog(this,
                     "Nama: " + namaTextField.getText() +
                             "\nID: " + idTextField.getText() +
@@ -320,25 +323,29 @@ public class LayerPeminjam extends javax.swing.JDialog {
         this.setVisible(false); //saat tombol ditekan, tampilan kelas ini tidak terlihat
     }
 
+    /**
+     * @return true, ketika pinjam kurang dari sama dengan nilai maxPinjam, tergantung indeks
+     */
     private boolean isMaxPinjamValid() {
-        Integer pinjam = (Integer) pinjamSpinner.getValue();
+        Integer pinjam = (Integer) pinjamSpinner.getValue();            //casting value pinnjamSpinner dari Object ke Integer
         int choosenDropdown = typePersonDropDown.getSelectedIndex();
         int[] maxPinjam = {5, 7, 3};
         String[] catchMessage = {"Mahasiswa", "Dosen", "Umum"};
 
-        try {
-            if (pinjam <= maxPinjam[choosenDropdown]) {
+        try { //ekspresi try
+            if (pinjam <= maxPinjam[choosenDropdown]) { //Dijalankan ketika nilai pinjam kurang dari sama dengan maxPinjam
+                                                        //array ke choosenDropdown
                 return true;
-            } else {
-                throw new Exception();
+            } else {                                    //Jika selain benar
+                throw new Exception();                  //Melempar Exception baru
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this,
+        } catch (Exception e) {                         //Menangkap Exception
+            JOptionPane.showMessageDialog(this,     //Menampilkan pesan dalam bentuk JOptanePane
                     catchMessage[choosenDropdown] +
                             " Maksimal Hanya dapat pinjam " +
                             maxPinjam[choosenDropdown]);
         }
-        return false;
+        return false; //Return false, berarti nilai true tidak didapatkan
     }
 
 

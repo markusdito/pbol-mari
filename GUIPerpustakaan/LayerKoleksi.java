@@ -496,29 +496,6 @@ public class LayerKoleksi extends javax.swing.JDialog {
         }
     }
 
-//    private boolean isFormatCorrect() {
-//        String[] tipePeminjam = {"^D", "^M", "^B"};
-//        String[] catchMessage = {"Disk", "Buku", "Majalah"};
-//        int choosenDropdown = tipeComboBox.getSelectedIndex();
-//        String showMessage = catchMessage[choosenDropdown];
-//
-//        Pattern pattern = Pattern.compile(tipePeminjam[choosenDropdown], Pattern.CASE_INSENSITIVE);
-//        Matcher matcher = pattern.matcher(idTextField.getText());
-//
-//        try {
-//            if (matcher.find()) {
-//                return true;
-//            } else {
-//                throw new Exception();
-//            }
-//        } catch (Exception e) {
-//            JOptionPane.showMessageDialog(this,
-//                    "ID " + showMessage + " dimulai dengan " +
-//                            showMessage.charAt(0));
-//        }
-//        return false;
-//    }
-
     /**
      * @param args the command line arguments
      */
