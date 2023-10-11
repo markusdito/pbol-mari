@@ -409,7 +409,7 @@ public class LayerKoleksi extends javax.swing.JDialog {
 
     private boolean isIdKoleksiStartWithLetter() {
         String[] tipePeminjam = {"^D", "^M", "^B"};
-        String[] catchMessage = {"Disk", "Buku", "Majalah"};
+        String[] catchMessage = {"Disk", "Majalah", "Buku"};
         int choosenDropdown = tipeComboBox.getSelectedIndex();
         String showMessage = catchMessage[choosenDropdown];
 
@@ -463,6 +463,8 @@ public class LayerKoleksi extends javax.swing.JDialog {
                                     " Hanya Berisi Angka");
                 }
                 break;
+            default:
+                return true;
         }
         return false;
     }
