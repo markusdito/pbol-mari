@@ -345,6 +345,7 @@ public class LayerKoleksi extends javax.swing.JDialog {
 
     //menjalankan program saat tombol simpan di tekan
     private void simpanButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        // nilai harus true semua agar JOptanePane ditampilkan
         boolean validate = isIdKoleksiStartWithLetter() && isUniversalInputInteger() && isInputFormatCorrect();
         String showAddonMessage = ""; //membuat variable baru dengan tipe String
 
@@ -361,6 +362,7 @@ public class LayerKoleksi extends javax.swing.JDialog {
                     "\nISBN: " + isbnTextInput.getText()); //String concat dan diassign ke varibale yang dibuat di atas
         }
 
+        //jika true, menampilkan JOptanePane
         if (validate) {
             JOptionPane.showMessageDialog(this,
                     "ID: " + idTextField.getText().toUpperCase() +
@@ -414,110 +416,101 @@ public class LayerKoleksi extends javax.swing.JDialog {
         int choosenDropdown = tipeComboBox.getSelectedIndex();
         String showMessage = catchMessage[choosenDropdown];
 
+        //membuat pattern regex, dimasukkan lewat parameter
+        //Patterm.CASE_INSENSITIVE, agar nilai yang akan dibandingkan tidak peduli KAPITAL
         Pattern pattern = Pattern.compile(tipePeminjam[choosenDropdown], Pattern.CASE_INSENSITIVE);
+
+        //mencari kesamaan pattern dengan nilai paramter
         Matcher matcher = pattern.matcher(idTextField.getText());
 
-        try {
-            if (matcher.find()) {
+        try { //ekspresi try
+            if (matcher.find()) {                       //jika matcher menemukan kesamaan
                 return true;
-            } else {
-                throw new Exception();
+            } else {                                    //jika selain benar
+                throw new Exception();                  //melempar Exception baru
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this,
+        } catch (Exception e) {                         //menangkap Exception
+            JOptionPane.showMessageDialog(this,     //menampilkan pesan dalam bentuk JOPtanePane
                     "ID " + showMessage + " dimulai dengan " +
                             showMessage.charAt(0));
         }
-        return false;
+        return false;   //Return false, berarti nilai true tidak tercapai
     }
 
     private boolean isUniversalInputInteger() {
+
+        //membuat pattern regex, dimasukkan lewat parameter
         Pattern pattern = Pattern.compile("\\d");
+
+        //mencari kesamaan pattern dengan nilai paramter
         Matcher matcher1 = pattern.matcher(firstUniversalTextInput.getText());
+
+        //mencari kesamaan pattern dengan nilai paramter
         Matcher matcher2 = pattern.matcher(secondUniversalTextInput.getText());
 
-        switch (tipeComboBox.getSelectedIndex()) {
-            case 1:
-                try {
-                    if (matcher1.find() && matcher2.find()) {
+        switch (tipeComboBox.getSelectedIndex()) { //menjalankan jika menemukan nilai yang sesuai
+            case 1:                                //nilai pertama
+                try {                              //ekspresi try
+                    if (matcher1.find() && matcher2.find()) {       //jika keuda matcher menemukan kesamaan
                         return true;
-                    } else {
-                        throw new Exception();
+                    } else {                                        //pilihan selain benar
+                        throw new Exception();                      //melempar Exception baru
                     }
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(this,
+                } catch (Exception e) {                             //menangkap Exception
+                    JOptionPane.showMessageDialog(this,     //menampilkan pesan dalam bentuk JOPtanePane
                             firstUniversalLabel.getText() +
                                     " atau " + secondUniversalLabel.getText() +
                                     " Hanya Berisi Angka");
                 }
-                break;
-            case 2:
-                try {
-                    if (matcher1.find()) {
+                break;                                              //menghentikan switch case
+            case 2:                             //nilai kedua
+                try {                           //ekspresi try
+                    if (matcher1.find()) {                          //jika matcher 1 menemukan kesamaan
                         return true;
-                    } else {
-                        throw new Exception();
+                    } else {                                        //pilihan selain benar
+                        throw new Exception();                      //melempar Exception baru
                     }
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(this,
+                } catch (Exception e) {                             //menangkap Exception
+                    JOptionPane.showMessageDialog(this,     //menampilkan pesan dalam bentuk JOPtanePane
                             firstUniversalLabel.getText() +
                                     " Hanya Berisi Angka");
                 }
-                break;
-            default:
+                break;                                              //menghentikan switch case
+            default:                            //nilai default, dijalankan jika kedua nilai tidak jalan
                 return true;
         }
-        return false;
+        return false;  //Return false, berarti nilai true tidak tercapai
     }
 
     private boolean isInputFormatCorrect() {
         String[] format = {"Audio", "Video", "Document"};
 
+        //membuat pattern regex, dimasukkan lewat parameter
+        //Patterm.CASE_INSENSITIVE, agar nilai yang akan dibandingkan tidak peduli KAPITAL
         Pattern pattern = Pattern.compile(format[tipeComboBox.getSelectedIndex()], Pattern.CASE_INSENSITIVE);
+
+        //mencari kesamaan pattern dengan nilai paramter
         Matcher matcher = pattern.matcher(firstUniversalTextInput.getText());
 
-        if (tipeComboBox.getSelectedIndex() == 0) {
-            try {
-                for (String s : format) {
-                    if (matcher.find()) {
+        if (tipeComboBox.getSelectedIndex() == 0) { //jika nilai indeks tipeComboBox adalah 0
+            try { //ekspresi try
+                for (String s : format) {                           //mengulang semua pilihan pada format
+                    if (matcher.find()) {                           //jika matcher menemukan kesamaan
                         return true;
-                    } else {
+                    } else {                                        //jika selain benar
                         throw new Exception();
                     }
                 }
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this,
+            } catch (Exception e) {                                 //menangkap Exception
+                JOptionPane.showMessageDialog(this,     //menampilkan pesan dalam bentuk JOPtanePane
                         firstUniversalLabel.getText() +
                                 " Hanya dapat berisi Audio, Video, Document");
             }
-            return false;
-        } else {
-            return true;
+            return false;  //Return false, berarti nilai true tidak tercapai
+        } else { //jika selain benar
+            return true;  //Return false, berarti nilai true tidak tercapai
         }
     }
-
-//    private boolean isFormatCorrect() {
-//        String[] tipePeminjam = {"^D", "^M", "^B"};
-//        String[] catchMessage = {"Disk", "Buku", "Majalah"};
-//        int choosenDropdown = tipeComboBox.getSelectedIndex();
-//        String showMessage = catchMessage[choosenDropdown];
-//
-//        Pattern pattern = Pattern.compile(tipePeminjam[choosenDropdown], Pattern.CASE_INSENSITIVE);
-//        Matcher matcher = pattern.matcher(idTextField.getText());
-//
-//        try {
-//            if (matcher.find()) {
-//                return true;
-//            } else {
-//                throw new Exception();
-//            }
-//        } catch (Exception e) {
-//            JOptionPane.showMessageDialog(this,
-//                    "ID " + showMessage + " dimulai dengan " +
-//                            showMessage.charAt(0));
-//        }
-//        return false;
-//    }
 
     /**
      * @param args the command line arguments

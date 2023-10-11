@@ -256,11 +256,14 @@ public class LayerPeminjam extends javax.swing.JDialog {
     //menjalankan program saat tombol simpan di tekan
     private void simpanButtonActionPerformed(java.awt.event.ActionEvent evt) {
 
-        //menampilkan pesan dialog dengan JOptanePane, berisi String,
-        // nilai diambil dari inputText
+        // nilai harus true semua agar JOptanePane ditampilkan
         if ((isNamaNotContainDigit() &&
                 isIdPeminjamStartWithLetter() &&
                 isNomorIndukHaveCorectLength()) && isMaxPinjamValid()) {
+
+            /**
+             * menampilkan pesan dialog dengan JOptanePane, berisi String, nilai diambil dari inputText
+             */
             JOptionPane.showMessageDialog(this,
                     "Nama: " + namaTextField.getText() +
                             "\nID: " + idTextField.getText() +
@@ -300,69 +303,89 @@ public class LayerPeminjam extends javax.swing.JDialog {
 
     }
 
+    /**
+     *
+     * @return true, ketika matcher tidak menemukan
+     */
     private boolean isNamaNotContainDigit() {
+
+        //membuat pattern regex, dimasukkan lewat parameter
         Pattern pattern = Pattern.compile("\\d+");
+
+        //mencari kesamaan pattern dengan nilai paramter
         Matcher matcher = pattern.matcher(namaTextField.getText());
-        try {
-            if (!matcher.find()) {
+        try { //Ekspresi try
+            if (!matcher.find()) {                      //ketika matcher tidak menemnukan
                 return true;
-            } else {
-                throw new Exception();
+            } else {                                    //jika selain benar
+                throw new Exception();                  //melempar Exception baru
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this,
+        } catch (Exception e) {                         //menangkap Exception
+            JOptionPane.showMessageDialog(this,     //Menampilkan pesan dalam bentuk JOptanePane
                     "Nama Tidak Boleh Mengandung Angka");
         }
-        return false;
+        return false; //Return false, berarti nilai true tidak tercapai
     }
 
     private void kembaliButtonActionPerformed(java.awt.event.ActionEvent evt) {
         this.setVisible(false); //saat tombol ditekan, tampilan kelas ini tidak terlihat
     }
 
+    /**
+     * @return true, ketika pinjam kurang dari sama dengan nilai maxPinjam, tergantung indeks
+     */
     private boolean isMaxPinjamValid() {
-        Integer pinjam = (Integer) pinjamSpinner.getValue();
+        Integer pinjam = (Integer) pinjamSpinner.getValue();            //casting value pinnjamSpinner dari Object ke Integer
         int choosenDropdown = typePersonDropDown.getSelectedIndex();
         int[] maxPinjam = {5, 7, 3};
         String[] catchMessage = {"Mahasiswa", "Dosen", "Umum"};
 
-        try {
+        try { //ekspresi try
+
+            //Dijalankan ketika nilai pinjam kurang dari sama dengan maxPinjam array ke choosenDropdown
             if (pinjam <= maxPinjam[choosenDropdown]) {
                 return true;
-            } else {
-                throw new Exception();
+            } else {                                    //Jika selain benar
+                throw new Exception();                  //Melempar Exception baru
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this,
+        } catch (Exception e) {                         //Menangkap Exception
+            JOptionPane.showMessageDialog(this,     //Menampilkan pesan dalam bentuk JOptanePane
                     catchMessage[choosenDropdown] +
                             " Maksimal Hanya dapat pinjam " +
                             maxPinjam[choosenDropdown]);
         }
-        return false;
+        return false; //Return false, berarti nilai true tidak tercapai
     }
 
-
+    /**
+     *
+     * @return true, ketika huruf pertama dalam idTextField sesuai dengan nilai tipePeminjam, tergantung indeks
+     */
     private boolean isIdPeminjamStartWithLetter() {
         String[] tipePeminjam = {"^M", "^D", "^U"};
         String[] catchMessage = {"Mahasiswa", "Dosen", "Umum"};
         int choosenDropdown = typePersonDropDown.getSelectedIndex();
         String showMessage = catchMessage[choosenDropdown];
 
+        //membuat pattern regex, dimasukkan lewat parameter
+        //Patterm.CASE_INSENSITIVE, agar nilai yang akan dibandingkan tidak peduli KAPITAL
         Pattern pattern = Pattern.compile(tipePeminjam[choosenDropdown], Pattern.CASE_INSENSITIVE);
+
+        //mencari kesamaan pattern dengan nilai paramter
         Matcher matcher = pattern.matcher(idTextField.getText());
 
-        try {
-            if (matcher.find()) {
+        try { //ekspresi try
+            if (matcher.find()){                        //jika matcher menemukan kesamaan
                 return true;
-            } else {
-                throw new Exception();
+            } else {                                    //jika selain benar
+                throw new Exception();                  //melempar Exception baru
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this,
+        } catch (Exception e) {                         //menangkap Exception
+            JOptionPane.showMessageDialog(this,     //menampilkan pesan dalam bentuk JOPtanePane
                     "ID " + showMessage + " dimulai dengan " +
                             showMessage.charAt(0));
         }
-        return false;
+        return false; //Return false, berarti nilai true tidak tercapai
     }
 
     private boolean isNomorIndukHaveCorectLength() {
@@ -370,22 +393,28 @@ public class LayerPeminjam extends javax.swing.JDialog {
         String[] catchMessage = {"NIM", "NIP", "NIK"};
         int choosenDropdown = typePersonDropDown.getSelectedIndex();
 
+        //membuat pattern regex, dimasukkan lewat parameter
         Pattern pattern = Pattern.compile("\\d");
+
+        //mencari kesamaan pattern dengan nilai paramter
         Matcher matcher = pattern.matcher(nomorIndukTextField.getText());
 
-        try {
+        try { //Ekspresi try
+
+            //Jika matcher menemukan kesamaan dan panjang text nomorIndukTextField sesuai dengan nilai initialCharacter,
+            //tergantung indeks
             if (matcher.find() && nomorIndukTextField.getText().length() ==
                     initialCharacter[choosenDropdown]) {
                 return true;
-            } else {
-                throw new Exception();
+            } else {                                    //jika selain benar
+                throw new Exception();                  //Melempar Exception baru
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this,
+        } catch (Exception e) {                         //Menangkap Exception
+            JOptionPane.showMessageDialog(this,     //Menampilkan pesan dalam bentuk JOptanePane
                     catchMessage[choosenDropdown] + " Harus " +
                             initialCharacter[choosenDropdown] + " Digit Angka");
         }
-        return false;
+        return false; //Return false, berarti nilai true tidak terapat
     }
 
 //    private boolean isIdPeminjamStartWithLetter() {
