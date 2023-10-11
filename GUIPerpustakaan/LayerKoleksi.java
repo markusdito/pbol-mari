@@ -444,7 +444,6 @@ public class LayerKoleksi extends javax.swing.JDialog {
 
         //mencari kesamaan pattern dengan nilai paramter
         Matcher matcher1 = pattern.matcher(firstUniversalTextInput.getText());
-
         //mencari kesamaan pattern dengan nilai paramter
         Matcher matcher2 = pattern.matcher(secondUniversalTextInput.getText());
 
