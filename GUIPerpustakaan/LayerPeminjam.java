@@ -310,7 +310,7 @@ public class LayerPeminjam extends javax.swing.JDialog {
     private boolean isNamaNotContainDigit() {
 
         //membuat pattern regex, dimasukkan lewat parameter
-        Pattern pattern = Pattern.compile("^[0-9]*$");
+        Pattern pattern = Pattern.compile("\\d");
 
         //mencari kesamaan pattern dengan nilai paramter
         Matcher matcher = pattern.matcher(namaTextField.getText());
@@ -335,7 +335,8 @@ public class LayerPeminjam extends javax.swing.JDialog {
      * @return true, ketika pinjam kurang dari sama dengan nilai maxPinjam, tergantung indeks
      */
     private boolean isMaxPinjamValid() {
-        Integer pinjam = (Integer) pinjamSpinner.getValue();            //casting value pinnjamSpinner dari Object ke Integer
+        //casting value pinnjamSpinner dari Object ke Integer
+        Integer pinjam = (Integer) pinjamSpinner.getValue();
         int choosenDropdown = typePersonDropDown.getSelectedIndex();
         int[] maxPinjam = {5, 7, 3};
         String[] catchMessage = {"Mahasiswa", "Dosen", "Umum"};
