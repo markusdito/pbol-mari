@@ -345,7 +345,7 @@ public class LayerKoleksi extends javax.swing.JDialog {
 
     //menjalankan program saat tombol simpan di tekan
     private void simpanButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        boolean validate = isIdKoleksiStartWithLetter() && isUniversalInputInteger();
+        boolean validate = isIdKoleksiStartWithLetter() && isUniversalInputInteger() && isInputFormatCorrect();
         String showAddonMessage = ""; //membuat variable baru dengan tipe String
 
         if (tipeComboBox.getSelectedIndex() == 0) { //jika item yang dipilih berindex 0
@@ -467,6 +467,29 @@ public class LayerKoleksi extends javax.swing.JDialog {
                 return true;
         }
         return false;
+    }
+
+    private boolean isInputFormatCorrect() {
+        String[] format = {"Audio", "Video", "Document"};
+
+        if (tipeComboBox.getSelectedIndex() == 0) {
+            try {
+                for (String s : format) {
+                    if (firstUniversalTextInput.getText().matches(s)) {
+                        return true;
+                    } else {
+                        throw new Exception();
+                    }
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this,
+                        firstUniversalLabel.getText() +
+                                " Hanya dapat berisi Audio, Video, Document");
+            }
+            return false;
+        } else {
+            return true;
+        }
     }
 
 //    private boolean isFormatCorrect() {
