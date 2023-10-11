@@ -440,7 +440,7 @@ public class LayerKoleksi extends javax.swing.JDialog {
     private boolean isUniversalInputInteger() {
 
         //membuat pattern regex, dimasukkan lewat parameter
-        Pattern pattern = Pattern.compile("\\d");
+        Pattern pattern = Pattern.compile("^[0-9]*$");
 
         //mencari kesamaan pattern dengan nilai paramter
         Matcher matcher1 = pattern.matcher(firstUniversalTextInput.getText());

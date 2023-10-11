@@ -310,7 +310,7 @@ public class LayerPeminjam extends javax.swing.JDialog {
     private boolean isNamaNotContainDigit() {
 
         //membuat pattern regex, dimasukkan lewat parameter
-        Pattern pattern = Pattern.compile("\\d+");
+        Pattern pattern = Pattern.compile("^[0-9]*$");
 
         //mencari kesamaan pattern dengan nilai paramter
         Matcher matcher = pattern.matcher(namaTextField.getText());
@@ -394,7 +394,7 @@ public class LayerPeminjam extends javax.swing.JDialog {
         int choosenDropdown = typePersonDropDown.getSelectedIndex();
 
         //membuat pattern regex, dimasukkan lewat parameter
-        Pattern pattern = Pattern.compile("\\d");
+        Pattern pattern = Pattern.compile("^[0-9]*$");
 
         //mencari kesamaan pattern dengan nilai paramter
         Matcher matcher = pattern.matcher(nomorIndukTextField.getText());
