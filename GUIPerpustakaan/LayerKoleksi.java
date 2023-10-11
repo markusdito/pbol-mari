@@ -350,8 +350,8 @@ public class LayerKoleksi extends javax.swing.JDialog {
         String showAddonMessage = ""; //membuat variable baru dengan tipe String
 
         if (tipeComboBox.getSelectedIndex() == 0) { //jika item yang dipilih berindex 0
-            showAddonMessage = ("\nFormat: " + firstUniversalTextInput.getText().substring(0,1).toUpperCase()+
-                    firstUniversalTextInput.getText().substring(1).toLowerCase()+
+            showAddonMessage = ("\nFormat: " + firstUniversalTextInput.getText().substring(0, 1).toUpperCase() +
+                    firstUniversalTextInput.getText().substring(1).toLowerCase() +
                     "\nISBN: " + isbnTextInput.getText()); //String concat dan diassign ke variable yang dibuat di atas
         } else if (tipeComboBox.getSelectedIndex() == 1) { //jika item yang dipilih berindex 1
             showAddonMessage = ("\nSeri: " + firstUniversalTextInput.getText() +
@@ -483,23 +483,25 @@ public class LayerKoleksi extends javax.swing.JDialog {
 
     private boolean isInputFormatCorrect() {
         String[] format = {"Audio", "Video", "Document"};
-
-        //membuat pattern regex, dimasukkan lewat parameter
-        //Patterm.CASE_INSENSITIVE, agar nilai yang akan dibandingkan tidak peduli KAPITAL
-        Pattern pattern = Pattern.compile(format[tipeComboBox.getSelectedIndex()], Pattern.CASE_INSENSITIVE);
-
-        //mencari kesamaan pattern dengan nilai paramter
-        Matcher matcher = pattern.matcher(firstUniversalTextInput.getText());
+        int indexFormat = 0;
 
         if (tipeComboBox.getSelectedIndex() == 0) { //jika nilai indeks tipeComboBox adalah 0
             try { //ekspresi try
                 for (String s : format) {                           //mengulang semua pilihan pada format
+                    //membuat pattern regex, dimasukkan lewat parameter
+                    //Patterm.CASE_INSENSITIVE, agar nilai yang akan dibandingkan tidak peduli KAPITAL
+                    Pattern pattern = Pattern.compile(format[indexFormat], Pattern.CASE_INSENSITIVE);
+
+                    //mencari kesamaan pattern dengan nilai paramter
+                    Matcher matcher = pattern.matcher(firstUniversalTextInput.getText());
+
                     if (matcher.find()) {                           //jika matcher menemukan kesamaan
                         return true;
-                    } else {                                        //jika selain benar
-                        throw new Exception();
+                    } else {
+                        indexFormat++;
                     }
                 }
+                throw new Exception();
             } catch (Exception e) {                                 //menangkap Exception
                 JOptionPane.showMessageDialog(this,     //menampilkan pesan dalam bentuk JOPtanePane
                         firstUniversalLabel.getText() +
