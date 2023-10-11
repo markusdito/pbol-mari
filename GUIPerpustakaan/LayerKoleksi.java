@@ -349,7 +349,8 @@ public class LayerKoleksi extends javax.swing.JDialog {
         String showAddonMessage = ""; //membuat variable baru dengan tipe String
 
         if (tipeComboBox.getSelectedIndex() == 0) { //jika item yang dipilih berindex 0
-            showAddonMessage = ("\nFormat: " + firstUniversalTextInput.getText() +
+            showAddonMessage = ("\nFormat: " + firstUniversalTextInput.getText().substring(0,1).toUpperCase()+
+                    firstUniversalTextInput.getText().substring(1).toLowerCase()+
                     "\nISBN: " + isbnTextInput.getText()); //String concat dan diassign ke variable yang dibuat di atas
         } else if (tipeComboBox.getSelectedIndex() == 1) { //jika item yang dipilih berindex 1
             showAddonMessage = ("\nSeri: " + firstUniversalTextInput.getText() +
@@ -362,7 +363,7 @@ public class LayerKoleksi extends javax.swing.JDialog {
 
         if (validate) {
             JOptionPane.showMessageDialog(this,
-                    "ID: " + idTextField.getText() +
+                    "ID: " + idTextField.getText().toUpperCase() +
                             "\nJudul: " + judulTextField.getText() +
                             "\nPenerbit: " + penerbitTextField.getText() +
                             "\nStatus Pinjam: " + statusPinjamButtonGroup.isSelected(trueButton.getModel()) +
@@ -472,10 +473,13 @@ public class LayerKoleksi extends javax.swing.JDialog {
     private boolean isInputFormatCorrect() {
         String[] format = {"Audio", "Video", "Document"};
 
+        Pattern pattern = Pattern.compile(format[tipeComboBox.getSelectedIndex()], Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(firstUniversalTextInput.getText());
+
         if (tipeComboBox.getSelectedIndex() == 0) {
             try {
                 for (String s : format) {
-                    if (firstUniversalTextInput.getText().matches(s)) {
+                    if (matcher.find()) {
                         return true;
                     } else {
                         throw new Exception();
