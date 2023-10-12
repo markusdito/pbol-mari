@@ -483,7 +483,7 @@ public class LayerKoleksi extends javax.swing.JDialog {
 
     private boolean isInputFormatCorrect() {
         String[] format = {"Audio", "Video", "Document"};
-        int indexFormat = 0;
+        int indexFormat = 0; //iterasi looping format
 
         if (tipeComboBox.getSelectedIndex() == 0) { //jika nilai indeks tipeComboBox adalah 0
             try { //ekspresi try
@@ -497,11 +497,11 @@ public class LayerKoleksi extends javax.swing.JDialog {
 
                     if (matcher.find()) {                           //jika matcher menemukan kesamaan
                         return true;
-                    } else {
-                        indexFormat++;
+                    } else {                                        //jika selain benar
+                        indexFormat++;                              //menambahkan satu nilai pada indexFormat
                     }
                 }
-                throw new Exception();
+                throw new Exception();                              //melempar exception baru
             } catch (Exception e) {                                 //menangkap Exception
                 JOptionPane.showMessageDialog(this,     //menampilkan pesan dalam bentuk JOPtanePane
                         firstUniversalLabel.getText() +
