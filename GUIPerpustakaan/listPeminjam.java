@@ -9,4 +9,13 @@ public class listPeminjam {
         daftarPeminjam = new ArrayList<>();
     }
 
+    public void displayListPeminjam(){
+        for (Peminjam p : daftarPeminjam){
+            System.out.println(p);
+        }
+    }
+
+    public void addPeminjam(Peminjam peminjam){
+        daftarPeminjam.add(peminjam);
+    }
 }

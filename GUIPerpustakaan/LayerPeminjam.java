@@ -19,6 +19,7 @@ public class LayerPeminjam extends javax.swing.JDialog {
     public LayerPeminjam(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        listPeminjam = new listPeminjam();
     }
 
     /**
@@ -261,6 +262,7 @@ public class LayerPeminjam extends javax.swing.JDialog {
                 isIdPeminjamStartWithLetter() &&
                 isNomorIndukHaveCorectLength()) && isMaxPinjamValid()) {
 
+
             /**
              * menampilkan pesan dialog dengan JOptanePane, berisi String, nilai diambil dari inputText
              */
@@ -271,6 +273,13 @@ public class LayerPeminjam extends javax.swing.JDialog {
                             "\nTipe Peminjam: " + typePersonDropDown.getModel().getSelectedItem() +
                             "\n" + nomorIndukLabel.getText() + ": " + nomorIndukTextField.getText() +
                             "\nBanyak Pinjam: " + pinjamSpinner.getValue());
+
+            if (typePersonDropDown.getSelectedIndex() == 0){
+                mahasiswa = new Mahasiswa(idTextField.getText(), namaTextField.getText(), alamatTextField.getText(), (Integer) pinjamSpinner.getValue(), nomorIndukTextField.getText());
+                listPeminjam.addPeminjam(mahasiswa);
+            }
+
+            listPeminjam.displayListPeminjam();
         }
     }
 
@@ -572,6 +581,8 @@ public class LayerPeminjam extends javax.swing.JDialog {
     private javax.swing.JButton simpanButton;
     private javax.swing.JComboBox<String> typePersonDropDown;
     private javax.swing.JButton ulangiButton;
+    private listPeminjam listPeminjam;
+    private Mahasiswa mahasiswa;
     // End of variables declaration//GEN-END:variables
 }
 
