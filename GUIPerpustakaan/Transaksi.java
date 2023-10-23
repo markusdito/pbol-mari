@@ -11,11 +11,9 @@ public class Transaksi {
     protected Koleksi[] koleksi;
     protected Peminjam peminjam;
 
-    public void pinjam(){
-        peminjam = new Peminjam();
-
-
-    }
+//    public void pinjam(){
+//        peminjam = new Peminjam();
+//    }
 
     public void kembali(){
 
